@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Self Service Portal</title>
+        <link rel="stylesheet" href="css_1.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body class='centerBlockParent'>
+        <div class="centerBlockBorder">
+            <h2>Welcome to Self Service Portal</h2>
+            <hr>
+            <div class='tabParent'>
+                <p class='tab' id = 'signin'>SIGN IN</p>
+                <p class='tab' id = 'signup'>SIGN UP</p>
+            </div>
+            <hr>
+
+            <div class="popup" id='signinPopup' >
+                <form action="in">
+                    <div>
+                        <input type="hidden" name="type" value="signin">
+                        <label for="email"> Email: </label>
+                        <br>
+                        <input id="signinEmail" type ="text" name ="email">
+                        <br>
+                        <label for="password">Password: </label>
+                        <br>
+                        <input id="signinPassword" type="password" name="password">
+                    </div>
+                    <br>
+                    <input id="signinConfirmed" class='button' type="submit" disabled value="Sign in">
+                </form>
+            </div>
+            <div class="popup" id='signupPopup' style='display: none'>
+                <form action="in">
+                    <input type="hidden" name="type" value="signup">
+                    <label for="first_name"> First Name: </label>
+                    <br>
+                    <input id="first_name" type ="text" name ="first_name">
+                    <br>
+                    <label for="last_name"> Last Name: </label>
+                    <br>
+                    <input id="last_name" type ="text" name ="last_name">
+                    <br>
+                    <label for="email"> Email: </label>
+                    <br>
+                    <input id="email" type ="text" name ="email">
+                    <br>
+                    <label for="confirmEmail">Confirm Email: </label>
+                    <br>
+                    <input id="confirmEmail" type ="text" name ="confirmEmail">
+                    <br>
+                    <label for="password">Password: </label>
+                    <br>
+                    <input id="password" type="password" name="password">
+                    <br>
+                    <label for="confirmPassword">Confirm Password: </label>
+                    <br>
+                    <input id="confirmPassword" type="password" name="confirmPassword">
+                    <br>
+                    <br>
+                    <input id="confirmed" class='button' type="submit" disabled value="Sign up">
+                </form>
+            </div>
+        </div>
+        <script>$('#signin').click(function () {
+                $('#signinPopup').show();
+                $('#signupPopup').hide();
+            });
+            $('#signup').click(function () {
+                $('#signinPopup').hide();
+                $('#signupPopup').show();
+            });
+            var confirmEmail = false;
+            var confirmPassword = false;
+            var confirmFirstName = false;
+            var confirmLastName = false;
+            $('#signinPassword').keyup(function () {
+                var email = $('#signinEmail').val();
+                var password = $('#signinPassword').val();
+                if ((email != null) && (password != null)) {
+                    var re = (/(.+)@(.+)\.(.+)/);
+                    if (!re.test($('#signinEmail').val())) {
+                        alert('Enter valid email');
+                        $('#signinEmail').val("");
+                        $('#signinPassword').val("");
+                        confirmEmail = false;
+                        $('#signinConfirmed').prop('disabled', true);
+                    } else {
+                        $('#signinConfirmed').prop('disabled', false);
+                    }
+
+                } else {
+                    $('#signinConfirmed').prop('disabled', true);
+                }
+            });
+            $('#signupPopup').keyup(function () {
+                if (confirmEmail && confirmPassword && confirmFirstName && confirmLastName) {
+                    var re = (/(.+)@(.+)\.(.+)/);
+                    if (!re.test($('#email').val())) {
+                        alert('Enter valid email');
+                        $('#email').val("");
+                        $('#confirmEmail').val("");
+                        confirmEmail = false;
+                        $('#confirmed').prop('disabled', true);
+                    } else {
+                        $('#confirmed').prop('disabled', false);
+                    }
+
+                } else {
+                    $('#confirmed').prop('disabled', true);
+                }
+            });
+            $('#first_name').keyup(function () {
+                if ($('#first_name').val() != "") {
+                    confirmFirstName = true;
+                } else {
+                    confirmFirstName = false;
+                }
+            });
+            $('#last_name').keyup(function () {
+                if ($('#first_name').val() != "") {
+                    confirmLastName = true;
+                } else {
+                    confirmLastName = false;
+                }
+            });
+            $('#email').blur(function () {
+
+            });
+            $('#confirmEmail').keyup(function () {
+                if ($('#confirmEmail').val() == $('#email').val()) {
+                    confirmEmail = true;
+                } else {
+                    confirmEmail = false;
+                }
+            });
+            $('#confirmPassword').keyup(function () {
+                if ($('#confirmPassword').val() == $('#password').val()) {
+                    confirmPassword = true;
+                } else {
+                    confirmPassword = false;
+                }
+            });
+
+        </script>
+    </body>
+</html>

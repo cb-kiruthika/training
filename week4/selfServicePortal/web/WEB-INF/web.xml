@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>logging</servlet-name>
+        <servlet-class>logging</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updating</servlet-name>
+        <servlet-class>updating</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>exiting</servlet-name>
+        <servlet-class>exiting</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logging</servlet-name>
+        <url-pattern>/in</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updating</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>exiting</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
