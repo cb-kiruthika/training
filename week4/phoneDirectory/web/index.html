@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" href="style_2.css" type="text/css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <title>Phone Directory</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="header">
+            <div class="headerText">
+                Phone Directory
+            </div>
+                
+        </div>
+        <div class="centerBlockParent">
+            <div class="centerBlock">
+        <div class="tabParent">
+        <div class="tab" id="add">
+            <span>ADD CONTACT</span>
+        </div>
+        <div class='tab' id="search">
+            <span>SEARCH CONTACT</span>
+        </div>
+        </div>
+        <div id="addPopup" hidden>
+            <form action="add">
+                <table class="invisible">
+                    <tbody>
+                        <tr>
+                            <td class="col_1">
+                                <label for="firstName">Name:</label>
+                            </td>
+                            <td class="col_2">
+                                <input class="mandatory" type="text" name="firstName"/>
+                                <input class="mandatory" type="text" name="lastName"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col_1">
+                                <label for="line_1">Address:</label>
+                            </td>
+                            <td class="col_2">
+                                <input class="mandatory" type="text" name="line_1"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col_1">
+                            </td>
+                            <td class="col_2">
+                                <input type="text" name="line_2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col_1">
+                            </td>
+                            <td class="col_2">
+                                <input class="mandatory" type="text" name="city"/>
+                                <input class="mandatory" type="text" name="state"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col_1">
+                            </td>
+                            <td class="col_2">
+                                <input type="text" name="zip"/>
+                                <input class="mandatory" type="text" name="country"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col_1">
+                                <label for="mobile">Phone(Mobile):</label>
+                            </td>
+                            <td class="col_2">
+                                <input class="mandatory" type="text" name="mobile"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col_1">
+                                <label for="home">Phone(Home):</label>
+                            </td>
+                            <td class="col_2">
+                                <input type="text" name="home"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col_1">
+                                <label for="work">Phone(Work):</label>
+                            </td>
+                            <td class="col_2">
+                                <input type="text" name="work"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class ="submit" type="submit" disabled>ADD CONTACT</button>
+            </form>
+        </div>
+        <div id="searchPopup" hidden>
+            <form action="search">
+                <table  class="invisible">
+                    <tbody>
+                        <tr>
+                            <td class="col_1">
+                                <label for="find">Search:</label>
+                            </td>
+                            <td class="col_2">
+                                <input class="mandatory" type="text" name="find"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class ="submit" type="submit" disabled>SEARCH CONTACT</button>
+
+            </form>
+            
+        </div>
+            </div>
+        </div>
+        <script>
+            $("#add").click(function(){
+                $("#addPopup").show();
+                $("#searchPopup").hide();
+            });
+            $("#search").click(function(){
+                $("#addPopup").hide();
+                $("#searchPopup").show();
+            });
+            $("form").keyup(function(){
+                var input =true;
+                $(this).find(".mandatory").each(function(){
+                    input = input && ($(this).val()!="");
+                });
+                if(input){
+                    $(this).find(".submit").prop("disabled",false);
+                }else{
+                    $(this).find(".submit").prop("disabled",true);
+                }
+            });
+        </script>
+    </body>
+</html>
