@@ -6,47 +6,52 @@ public class RotateMatrix{
         public static void main(String[] args){
 
                 Scanner in = new Scanner(System.in);
+                do{
+                        System.out.println("rows?");
+                        int rows = in.nextInt();
+                        System.out.println("columns?");
+                        int cols = in.nextInt();
 
-                System.out.println("rows?");
-                int rows = in.nextInt();
-                System.out.println("columns?");
-                int cols = in.nextInt();
-
-                int[][] matrix ;
-                matrix = new int[rows][cols];
-                System.out.println("Inputs");
-                for ( int row= 0; row< rows;row++){
-                        for ( int col=0;col< cols;col++){
-                                matrix[row][col] = in.nextInt();
+                        int[][] matrix ;
+                        matrix = new int[rows][cols];
+                        System.out.println("Inputs");
+                        for ( int row= 0; row< rows;row++){
+                                for ( int col=0;col< cols;col++){
+                                        matrix[row][col] = in.nextInt();
+                                }
                         }
-                }
 
-                int[][] output = new int[cols][rows];
+                        int[][] output = new int[cols][rows];
 
-                System.out.println("right/left?");
-                String rl = in.next();
-                if(rl.equals("right")){
-
-                        System.out.println("Rotating to right..");
-                        output = rotate(matrix,rows,cols,false);
-                }
-                if (rl.equals( "left")){
-
-                        System.out.println("Rotating to left..");
-                        output = rotate(matrix,rows,cols,true);
-                }
-                
-                
-                System.out.println("Input");
-                System.out.println();
-                printMatrix(matrix,rows, cols);
                         
+                        String rl;
+                        do{     
+                                System.out.println("right/left/quit?");
+                                rl = in.next();
+                                if(rl.equalsIgnoreCase("right")){
 
-                System.out.println("Output");
-                System.out.println();
-                printMatrix(output, cols,rows);
-                
+                                        System.out.println("Rotating to right..");
+                                        output = rotate(matrix,rows,cols,false);
+                                }else if (rl.equalsIgnoreCase( "left")){
 
+                                        System.out.println("Rotating to left..");
+                                        output = rotate(matrix,rows,cols,true);
+                                }else{
+                                        System.out.println("Enter valid Input");
+                                }
+                                
+                                
+                                System.out.println("Input");
+                                System.out.println();
+                                printMatrix(matrix,rows, cols);
+                                        
+
+                                System.out.println("Output");
+                                System.out.println();
+                                printMatrix(output, cols,rows);
+                        }while(!rl.equalsIgnoreCase("quit"));
+                        System.out.println("Another input matrix? (y/n)");
+                }while(in.next().equalsIgnoreCase("y"));
         }
 
         public static int[][] rotate(int[][] input,int rows, int cols, boolean direction){
