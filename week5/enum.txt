@@ -1,0 +1,65 @@
+//create tables
+void _test_users(AppTable t){
+t.$id().$auto();
+t.$string("first_name").$maxChars(30);
+t.$string("last_name").$maxChars(30);
+t.$string("company").$maxChars(30);
+t.$int("credit_balance");
+t.$timestamp("dob");
+t.$timestamp("last_modified").$autoInitAndUpdate();
+t.$timestamp("user_created_on").$notNull().$updateable(false).$auto(Auto.APP_INIT_ONLY);
+t.$demodata(false);
+}
+void _phone_numbers(AppTable t){
+t.$id().$auto();
+t.$fk("test_users");
+t.$enum("type").$default(0).$entries(t.$entry("mobile", 0),t.$entry("home", 1),t.$entry("work", 2));
+t.$string("number").$maxChars(30);
+t.$demodata(false);
+}
+
+
+
+
+
+//create records
+InitializerServlet.initStandAlone();
+TestUser tu = new TestUser();
+tu.firstName("Joe").lastName("Diego").company("MyComp");
+tu.dbInsert();
+System.out.println(tu.id());
+PhoneNumber pn_1 = new PhoneNumber();
+PhoneNumber pn_2 = new PhoneNumber();
+PhoneNumber pn_3 = new PhoneNumber();
+pn_1.testUserId(tu.id()).type(PhoneNumberBase.Type.HOME).number("0413-2622127");
+pn_2.testUserId(tu.id()).type(PhoneNumberBase.Type.WORK).number("044-645372");
+pn_3.testUserId(tu.id()).type(PhoneNumberBase.Type.MOBILE).number("9807654321");
+pn_1.dbInsert();
+pn_2.dbInsert();
+pn_3.dbInsert();
+
+Condition cond = qtest_users.first_name.equal("Joe").and(qtest_users.last_name.equal("Diego"));
+List<TestUser> testUsers = qtest_users.dbFetchList(cond);   
+
+for(TestUser testUser:testUsers){
+    
+    Condition condH = qphone_numbers.test_user_id.equal(testUser.id()).and(qphone_numbers.type.equal(PhoneNumberBase.Type.HOME.i));
+    Condition condW = qphone_numbers.test_user_id.equal(testUser.id()).and(qphone_numbers.type.equal(PhoneNumberBase.Type.WORK.i));
+    Condition condM = qphone_numbers.test_user_id.equal(testUser.id()).and(qphone_numbers.type.equal(PhoneNumberBase.Type.MOBILE.i));
+    
+    List<PhoneNumber> pns = qphone_numbers.dbFetchList(condH);
+    for(PhoneNumber pn:pns){
+        System.out.println(pn.type());
+        System.out.println(pn.type_e().disp());
+        pn.number("044-645372");
+        pn.dbUpdate();
+    }
+    pns = qphone_numbers.dbFetchList(condW);
+    for(PhoneNumber pn:pns){
+        pn.number("0413-2622127");
+        System.out.println(pn.type());
+        System.out.println(pn.type_e().disp());
+        pn.dbUpdate();
+    }
+    System.out.println(testUser.toString());
+}

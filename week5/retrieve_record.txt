@@ -1,0 +1,16 @@
+InitializerServlet.initStandAlone();
+        
+        TestUser tu_id = qtest_users.dbFetchOne(71000000000L);
+        System.out.println(tu_id.toString());
+        List<TestUser> notWorkingInCB = qtest_users.dbFetchList(qtest_users.company.notEqual("Chargebee"));
+        for(TestUser t:notWorkingInCB){
+            System.out.println(t.toString());
+            
+        }
+        List<TestUser> workingInCBcredit1000_10000 = qtest_users.dbFetchList(qtest_users.company.equal("Chargebee").and(qtest_users.credit_balance.between(1000, 10000)));
+        for(TestUser t:workingInCBcredit1000_10000){
+            System.out.println(t.toString());
+            
+        }
+        TestUser tu_company = qtest_users.dbFetchOne(qtest_users.company.equal("Chargebee"));
+        System.out.println(tu_company.toString());

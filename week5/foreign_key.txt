@@ -1,0 +1,23 @@
+void _books(AppTable t){
+     t.$id().$auto();
+     t.$string("title").$maxChars(30);
+     t.$string("author").$maxChars(30);
+     t.$string("publication").$maxChars(30);
+     t.$bool("is_issued");
+     t.$demodata(false);
+ }
+ void _marks(AppTable t){
+     t.$id().$auto();
+     t.$fk("students");
+     t.$int("mark");
+     t.$int("subject_code");
+     t.$demodata(false);
+ }
+ void _issue_books(AppTable t){
+     t.$id().$auto();
+     t.$fk("students");
+     t.$fk("books");
+     t.$date("issue_date");
+     t.$date("due_date");
+     t.$demodata(false);
+ }

@@ -1,0 +1,8 @@
+void _test_users(AppTable t){
+        t.$id().$auto();
+        t.$string("first_name").$maxChars(30);
+        t.$string("last_name").$maxChars(30);
+        t.$string("company").$maxChars(30);
+        t.$int("credit_balance");
+        t.$demodata(false);
+    }

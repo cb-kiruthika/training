@@ -1,0 +1,16 @@
+void _taxes(AppTable t)
+{
+    t.$id().$auto();
+    t.$siteSegFK();
+    t.$enum("type").$notNull().$entries(
+        t.$entry("General Tax", 100),
+        t.$entry("EU VAT", 200).$visible(Boolean.FALSE),
+        t.$entry("EU VAT 2015", 300)
+    );
+    t.$string("label").$minChars(3).$maxChars(50).$notNull();
+    t.$string("test").$maxChars(250);
+    t.$double("rate").$min(0.01d).$max(100d);
+
+    t.$string("description").$maxChars(250);
+    t.$demodata(false);
+}

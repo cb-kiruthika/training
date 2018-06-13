@@ -1,0 +1,77 @@
+Result<Record> res = SqlUtils.Sql().select(qstudents.ALL)
+                .select(qissue_books.ALL)
+                .from(qstudents)
+                .leftOuterJoin(qissue_books_using_qstudents)
+                .where(qissue_books.book_id.isNull())
+                .fetch();
+        PojoList<Student> students = qstudents.create(res);
+        PojoList<IssueBook> issueBooks = qissue_books.create(res);
+        for(Student st:students){
+            System.out.println(st.toString());
+        }
+
+
+
+
+        InitializerServlet.initStandAlone();
+
+        
+        Date date = new Date(System.currentTimeMillis());
+        Calendar c = (Calendar.getInstance());
+        c.setTime(date);
+        c.add(Calendar.DATE, 5);
+        Date date5 = new Date(c.getTimeInMillis());
+        Result<Record> res = SqlUtils.Sql().select(qstudents.ALL)
+                .select(qissue_books.ALL)
+                .from(qstudents)
+                .leftOuterJoin(qissue_books_using_qstudents)
+                .where(qissue_books.due_date.between( date,date5))
+                .fetch();
+        PojoList<Student> students = qstudents.create(res);
+        for(Student st:students){
+            System.out.println(st.toString());
+        }
+
+
+        Date date = new Date(System.currentTimeMillis());
+        Calendar c = (Calendar.getInstance());
+        c.setTime(date);
+        c.add(Calendar.DATE, 5);
+        Date date5 = new Date(c.getTimeInMillis());
+        Result<Record> res = SqlUtils.Sql().select(qbooks.ALL)
+                .select(qissue_books.ALL)
+                .from(qbooks)
+                .leftOuterJoin(qissue_books_using_qbooks)
+                .where(qissue_books.due_date.between( date,date5))
+                .fetch();
+        PojoList<Book> books = qbooks.create(res);
+        PojoList<IssueBook> issueBooks = qissue_books.create(res);
+        for(Book bk:books){
+            System.out.println(bk.toString());
+        }
+
+
+
+        InitializerServlet.initStandAlone();
+
+        Result<Record> res = SqlUtils.Sql().select(qstudents.ALL)
+                .select(qissue_books.ALL)
+                .select(qbooks.ALL)
+                .from(qstudents)
+                .leftOuterJoin(qissue_books_using_qstudents)
+                .leftOuterJoin(qbooks)
+                .on(qbooks.id.equal(qissue_books.book_id))
+                .where(qissue_books.book_id.isNotNull())
+                .fetch();
+        PojoList<Student> students = qstudents.create(res);
+        PojoList<Book> books = qbooks.create(res);
+        PojoList<IssueBook> issueBooks = qissue_books.create(res);
+        for(Student st:students){
+            System.out.println(st.toString());
+        }
+        for(Book bk:books){
+            System.out.println(bk.toString());
+        }
+        for(IssueBook ib:issueBooks){
+            System.out.println(ib.toString());
+        }

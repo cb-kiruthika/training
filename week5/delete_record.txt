@@ -1,0 +1,7 @@
+qtest_users.dbDelete(71000000002L);
+        qtest_users.dbDelete(qtest_users.dbFetchAny(qtest_users.first_name.equal("k").and(qtest_users.last_name.equal("k"))));
+        PojoList<TestUser> companyNull = qtest_users.dbFetchList(qtest_users.company.isNull());
+        for(TestUser t:companyNull){
+            t.dbDelete();
+        }
+

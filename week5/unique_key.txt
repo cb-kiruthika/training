@@ -1,0 +1,38 @@
+
+ void _students(AppTable t){
+     t.$id().$auto();
+     t.$int("roll_no");
+     t.$string("std").$maxChars(30);
+     t.$string("first_name").$maxChars(30);
+     t.$string("last_name").$maxChars(30);
+     t.$string("gender").$maxChars(30);
+     t.$string("email").$maxChars(30);
+     t.$consUK("email");
+     t.$demodata(false);
+ }
+
+ void _students(AppTable t){
+     t.$id().$auto();
+     t.$int("roll_no");
+     t.$string("std").$maxChars(30);
+     t.$string("first_name").$maxChars(30);
+     t.$string("last_name").$maxChars(30);
+     t.$string("gender").$maxChars(30);
+     t.$string("email").$maxChars(30);
+     t.$consUK("roll_no","std");
+     t.$demodata(false);
+ }
+
+ void _students(AppTable t){
+     t.$id().$auto();
+     t.$int("roll_no");
+     t.$string("std").$maxChars(30);
+     t.$string("first_name").$maxChars(30);
+     t.$string("last_name").$maxChars(30);
+     t.$string("gender").$maxChars(30);
+     t.$string("email").$maxChars(30);
+     t.$index("email");
+     t.$consUK("roll_no","std");
+     t.$demodata(false);
+ }
+

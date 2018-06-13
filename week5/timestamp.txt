@@ -1,0 +1,22 @@
+//add column
+void _test_users(AppTable t){
+    t.$id().$auto();
+    t.$string("first_name").$maxChars(30);
+    t.$string("last_name").$maxChars(30);
+    t.$string("company").$maxChars(30);
+    t.$int("credit_balance");
+    t.$timestamp("dob");
+    t.$timestamp("last_modified").$autoInitAndUpdate();
+    t.$timestamp("user_created_on").$notNull().$updateable(false).$auto(Auto.APP_INIT_ONLY);
+    t.$demodata(false);
+}
+
+
+//create records
+InitializerServlet.initStandAlone();
+TestUser tu = new TestUser();
+//        tu.firstName("k").lastName("kk").company("cb");
+tu = qtest_users.dbFetchOne(qtest_users.last_modified.greaterThan( new Timestamp((new SimpleDateFormat("yyyy-MM-dd")).parse("2015-03-13").getTime())));
+tu.lastName("aa");
+tu.dbUpdate();
+System.out.println(tu.firstName());

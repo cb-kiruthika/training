@@ -1,0 +1,4 @@
+Result<Record> res = SqlUtils.Sql().select(qstudents.ALL)
+                .from(qstudents)
+                .where(qstudents.first_name.regexLike("^k"))
+                .fetch();

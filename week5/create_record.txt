@@ -1,0 +1,7 @@
+//Insert the below record to the table 'test_users'
+TestUser tu = new TestUser();
+tu.firstName("k").lastName("k").company("Chargebee").creditBalance(2000);
+tu.dbInsert();
+PhoneNumber pn = new PhoneNumber();
+pn.type(1).number("1234556").testUserId(tu.id());
+pn._dbInsert();

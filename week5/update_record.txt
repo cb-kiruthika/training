@@ -1,0 +1,29 @@
+InitializerServlet.initStandAlone();
+        
+        TestUser tu_id = qtest_users.dbFetchOne(71000000000L);
+        PhoneNumber pn = qphone_numbers.dbFetchAny(qphone_numbers.test_user_id.equal(71000000000L));
+        pn.number("222222");
+        pn.dbUpdate();
+        
+        PojoList<TestUser> tu_credit_2000 = qtest_users.dbFetchList(qtest_users.credit_balance.equal(2000));
+        for(TestUser tu:tu_credit_2000){
+            tu.creditBalance(2500);
+        }
+        tu_credit_2000.dbUpdate();
+        
+        TestUser tu_name = qtest_users.dbFetchOne(qtest_users.first_name.equal("k").and(qtest_users.last_name.equal("kk")));
+        if(tu_name != null){
+        PhoneNumber pn_name = qphone_numbers.dbFetchOne(qphone_numbers.test_user_id.equal(tu_name.id()));
+        pn_name.number("3333333");
+        pn_name.dbUpdate();
+        }
+        
+        qtest_users.credit_balance.dbUpdate(200000,null);
+        
+        TestUser tu_new = new TestUser();
+        tu_new.company("CB");
+        tu_new.dbInsert();
+        PhoneNumber pn_new = new PhoneNumber();
+        pn_new.testUserId(tu_new.id()).number("9876543210");
+        pn_new.dbInsert();
+        

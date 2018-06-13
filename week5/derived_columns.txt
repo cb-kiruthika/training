@@ -1,0 +1,9 @@
+// 1.Calculate the Grade based on the sum of the marks(total) by using derived columns.
+//Calculate the Age of the student by his date of birth.
+JQDerivedColumn age = new JQDerivedColumn(qnew_students.dob.,"age").$derivedFrom(qnew_students);
+
+Result res = SqlUtils.Sql().select(age).from(qnew_students).fetch();
+for(int i =0;i<res.size();i++){
+Record rec = res.getRecord(i);
+System.out.println(rec.toString());
+}

@@ -1,0 +1,20 @@
+
+ void _basic_plans(AppTable t){
+     t.$long("plan_id");
+     t.$consPK("plan_id");
+     t.$code();
+     t.$money("amount");
+     t.$longMoney("total_money_received");
+     t.$http_url("hosted_page_url");
+     t.$demodata(false);
+ }
+
+//in testDB.java
+InitializerServlet.initStandAlone();
+BasicPlan bp = new BasicPlan();
+bp.planId(new Long(0002)).code("plan_1").amount(2).currency(CurrencyType.EURO).totalMoneyReceived(new Long(5));
+System.out.println(bp.toString());
+bp.dbInsert();
+System.out.println(bp.toString());
+
+
